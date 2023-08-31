@@ -1,0 +1,27 @@
+server:
+  port: 8083
+
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: service-employee
+          uri: lb://service-employee
+          predicates:
+            - Path=/employee/**
+        - id: service-department
+          uri: lb://service-department
+          predicates:
+            - Path=/department/**
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/registry/eureka
+
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
